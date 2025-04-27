@@ -26,7 +26,7 @@ public class AuthService
         try
         {
             var user = await _userRepository.GetUserByEmail(model.Email);
-            if (user == null) return "";
+            if (user == null || user.PasswordHash != model.Password) return "";
             return GenerateJwtToken(user);
         }
         catch (Exception e)

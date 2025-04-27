@@ -74,13 +74,13 @@ namespace InventoryPlus.WebAPI.Controllers
             var equipmentConsumables =
                 (await _equipmentModelRepository.GetConsumablesWithCategoriesAsync(equipmentModel.ModelId))
                 .GroupBy(e => e.Category.Name)
-                .ToDictionary(g => g.Key, g => g.AsEnumerable());
+                .ToDictionary(g => g.Key, g => g.AsEnumerable()); //Сгруппированные по типу модели расходников
 
             var responsibleEmployee = new EmployeeReportInfo();
-            var cabinet = await _cabinetRepository.GetByIdAsync(equipmentInstance.CabinetId);
+            var cabinet = await _cabinetRepository.GetByIdAsync(equipmentInstance.CabinetId); // Информация о местоположении
             if (cabinet.ResponsibleEmployeeId != null)
             {
-                var employee = await _employeeRepository.GetByIdAsync(cabinet.ResponsibleEmployeeId.Value);
+                var employee = await _employeeRepository.GetByIdAsync(cabinet.ResponsibleEmployeeId.Value); // Ответвенное лицо
                 responsibleEmployee = new EmployeeReportInfo
                 {
                     FullName = employee.FullName,
@@ -89,7 +89,7 @@ namespace InventoryPlus.WebAPI.Controllers
                 };
             }
 
-            var building = await _buildingRepository.GetByIdAsync(cabinet.BuildingId);
+            var building = await _buildingRepository.GetByIdAsync(cabinet.BuildingId); 
 
             return new EquipmentFullInfo
             {

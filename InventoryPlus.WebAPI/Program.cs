@@ -49,7 +49,7 @@ builder.Services.AddSwaggerGen(option =>
         Contact = new OpenApiContact
         {
             Name = "Prohortsev Andrew",
-            Email = "proanvl@gmail.com"
+            Email = "proВВanvl@gmail.com"
         }
     });
     
@@ -150,9 +150,9 @@ if (app.Environment.IsDevelopment())
 // Настройка middleware
 app.UseHttpsRedirection(); // Перенаправление HTTP на HTTPS
 app.UseAuthentication(); // Аутентификация
+app.UseAuthorization(); // Авторизация
 app.UseMiddleware<ExceptionHandlingMiddleware>(); // Обработка исключений
 app.UseMiddleware<RequestLoggingMiddleware>(); // Логирование запросов
-app.UseAuthorization(); // Авторизация
 
 app.MapControllers();
 

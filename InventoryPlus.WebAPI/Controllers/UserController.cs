@@ -25,33 +25,21 @@ namespace InventoryPlus.WebAPI.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly AuthService _authService;
-
-        /// <summary>
-        /// Конструктор контроллера пользователей
-        /// </summary>
-        /// <param name="userRepository">Репозиторий пользователей</param>
-        /// <param name="authService">Сервис аутентификации</param>
+        
         public UserController(IUserRepository userRepository, AuthService authService)
         {
             _userRepository = userRepository;
             _authService = authService;
         }
 
-        /// <summary>
-        /// Получение списка всех пользователей
-        /// </summary>
-        /// <returns>Список пользователей</returns>
+       
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
             return Ok(await _userRepository.GetAllAsync());
         }
 
-        /// <summary>
-        /// Получение пользователя по идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
-        /// <returns>Пользователь</returns>
+       
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetById(Guid id)
         {
@@ -60,11 +48,7 @@ namespace InventoryPlus.WebAPI.Controllers
             return Ok(user);
         }
 
-        /// <summary>
-        /// Создание нового пользователя
-        /// </summary>
-        /// <param name="userDto">Данные пользователя</param>
-        /// <returns>Созданный пользователь</returns>
+       
         [HttpPost]
         public async Task<ActionResult<User>> Insert(UserDto userDto)
         {
@@ -80,11 +64,7 @@ namespace InventoryPlus.WebAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id = user.UserId }, user);
         }
 
-        /// <summary>
-        /// Обновление данных пользователя
-        /// </summary>
-        /// <param name="user">Обновленные данные пользователя</param>
-        /// <returns>Обновленный пользователь</returns>
+       
         [HttpPost]
         public async Task<ActionResult<User>> Update(User user)
         {
@@ -93,11 +73,7 @@ namespace InventoryPlus.WebAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id = user.UserId }, user);
         }
 
-        /// <summary>
-        /// Удаление пользователя по идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
-        /// <returns>Результат операции</returns>
+       
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteById(Guid id)
         {
@@ -107,11 +83,7 @@ namespace InventoryPlus.WebAPI.Controllers
             return NoContent();
         }
 
-        /// <summary>
-        /// Регистрация нового пользователя
-        /// </summary>
-        /// <param name="registerModel">Данные для регистрации</param>
-        /// <returns>Результат регистрации</returns>
+       
         [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
@@ -122,18 +94,14 @@ namespace InventoryPlus.WebAPI.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// Аутентификация пользователя
-        /// </summary>
-        /// <param name="loginModel">Данные для входа</param>
-        /// <returns>JWT токен</returns>
+       
         [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {
             var result = await _authService.Login(loginModel);
-            if (result == "")
-                return BadRequest();
+            if (result == "Пол")
+                return BadRequest("Неверное имя пользователя или пароль");
             return Ok(result);
         }
     }
