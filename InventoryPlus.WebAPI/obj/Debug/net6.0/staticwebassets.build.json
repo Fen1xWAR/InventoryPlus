@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "GmC0gLrC+gUwLFCsBZV6qJOBmOv0Onv1aam2Zf6bSKM=",
+  "Source": "InventoryPlus.WebAPI",
+  "BasePath": "_content/InventoryPlus.WebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
